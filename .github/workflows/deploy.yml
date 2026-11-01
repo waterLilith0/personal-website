@@ -50,6 +50,12 @@ jobs:
           build-args: |
             VITE_FARO_ENABLED=true
             VITE_FARO_URL=https://faro.waterlilith.space/collect
+            FARO_UPLOAD_ENDPOINT=${{ vars.FARO_UPLOAD_ENDPOINT }}
+            FARO_APP_ID=${{ vars.FARO_APP_ID }}
+            FARO_STACK_ID=${{ vars.FARO_STACK_ID }}
+          # Mounted only for the build step, so it never ends up in an image layer.
+          secrets: |
+            faro_api_key=${{ secrets.FARO_API_KEY }}
           platforms: linux/arm64
           push: true
           tags: ${{ env.WEBSITE_IMAGE }}:${{ github.ref_name == 'main' && 'prod' || github.ref_name }}

@@ -10,7 +10,8 @@ ARG VITE_FARO_URL
 ARG FARO_UPLOAD_ENDPOINT
 ARG FARO_APP_ID
 ARG FARO_STACK_ID
-RUN --mount=type=secret,id=faro_api_key FARO_API_KEY="$(cat /run/secrets/faro_api_key 2>/dev/null)" npm run build
+RUN --mount=type=secret,id=faro_api_key FARO_API_KEY="$(cat /run/secrets/faro_api_key 2>/dev/null)" npm run build \
+    && find dist -name "*.map" -delete
 
 # Stage 2: Production Runtime
 FROM nginx:alpine
