@@ -2,6 +2,7 @@ export const links = [
   { link: "/home", name: "Home" },
   { link: "/about-contact", name: "About" },
   { link: "/gallery", name: "Gallery" },
+  { link: "/vrc", name: "VRChat" },
   { link: "/yt-embed", name: "YouTube Embed" },
   { link: "https://dashboard.waterlilith.space", name: "API Dashboard" },
 ];
