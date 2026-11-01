@@ -2,7 +2,7 @@ import { NavLink } from "react-router";
 import { links } from "@/site/content";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import NavbarThemeMenu from "./ThemeMenu";
 
 function Navbar({ open, onToggle }: { open: boolean; onToggle: () => void }) {

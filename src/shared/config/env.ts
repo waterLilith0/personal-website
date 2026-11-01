@@ -4,6 +4,7 @@ export const env = {
   mode,
   mocksEnabled:
     import.meta.env.DEV && import.meta.env.VITE_ENABLE_MOCKS === "true",
+  galleryUrl: import.meta.env.VITE_GALLERY_URL as string,
   faro: {
     enabled: import.meta.env.VITE_FARO_ENABLED === "true",
     url: import.meta.env.VITE_FARO_URL,

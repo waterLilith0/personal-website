@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import {
   Select,
   SelectContent,

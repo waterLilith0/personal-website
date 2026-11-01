@@ -23,6 +23,7 @@
     "@fortawesome/react-fontawesome": "^3.3.1",
     "@grafana/faro-react": "^2.12.1",
     "@grafana/faro-web-tracing": "^2.12.1",
+    "@lightgallery/react": "^3.0.0",
     "@remixicon/react": "^4.9.0",
     "@tailwindcss/vite": "^4.3.3",
     "class-variance-authority": "^0.7.1",
@@ -40,6 +41,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",
+    "@cloudflare/workers-types": "^5.20261101.1",
     "@eslint/js": "^10.0.1",
     "@grafana/faro-rollup-plugin": "^0.13.2",
     "@rolldown/plugin-babel": "^0.2.4",
@@ -58,7 +60,8 @@
     "prettier": "^3.9.10",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.59.4",
-    "vite": "^8.3.5"
+    "vite": "^8.3.5",
+    "wrangler": "^4.156.0"
   },
   "allowScripts": {
     "esbuild@0.28.2": true

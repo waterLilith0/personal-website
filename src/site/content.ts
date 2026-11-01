@@ -6,20 +6,6 @@ export const links = [
   { link: "https://dashboard.waterlilith.space", name: "API Dashboard" },
 ];
 
-export const socials = [
-  { link: "https://github.com/waterlilith0", name: "GitHub", icon: faGithub },
-  {
-    link: "https://bsky.app/profile/waterlilith.space",
-    name: "Bluesky",
-    icon: faBluesky,
-  },
-  {
-    link: "https://www.linkedin.com/in/miriam-fix-0b96b12aa/",
-    name: "LinkedIn",
-    icon: faLinkedin,
-  },
-];
-
 export const cards = [
   {
     title: "Steampunk",
