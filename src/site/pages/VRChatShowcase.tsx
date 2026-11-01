@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { buttonVariants } from '@/components/ui/button'
+import { cn } from 'cn'
 import { IMAGE_EXT, fileUrl, listDir } from '../../shared/media'
 import MasonryGallery from '../../shared/MasonryGallery'
 
@@ -37,7 +39,17 @@ function Project({ folder, title, description }: (typeof PROJECTS)[number]) {
 
   return (
     <section className="w-full max-w-5xl">
-      <h2>{title}</h2>
+      <div className="flex items-start justify-between gap-4">
+        <h2>{title}</h2>
+        <a
+          href="https://ko-fi.com/F2F41FAAQB"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(buttonVariants(), 'shrink-0 bg-[#72a4f2] text-white hover:bg-[#72a4f2]/85')}
+        >
+          Tip me
+        </a>
+      </div>
       <p>{description}</p>
       <div className="mt-2">
         <MasonryGallery keys={images} maxColumns={3} />
