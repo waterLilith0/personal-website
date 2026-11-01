@@ -13,6 +13,22 @@ const DESCRIPTION_FILE = 'description.txt'
 // it are shown in a gallery, every other file is a download link.
 const toTitle = (folder: string) => folder.replace(/[-_]+/g, ' ')
 
+// The capture group makes split() keep the URLs, so they land on odd indexes.
+// Trailing punctuation is left out of the link.
+const URL_PATTERN = /(https?:\/\/[^\s<>"]*[^\s<>".,;:!?)\]])/
+
+function LinkedText({ text }: { text: string }) {
+  return text.split(URL_PATTERN).map((part, i) =>
+    i % 2 === 1 ? (
+      <a key={i} href={part} target="_blank" rel="noopener noreferrer" className="underline">
+        {part}
+      </a>
+    ) : (
+      part
+    ),
+  )
+}
+
 async function readText(key: string): Promise<string> {
   const res = await fetch(fileUrl(key))
   return res.ok ? (await res.text()).trim() : ''
@@ -53,7 +69,9 @@ function Project({ folder }: { folder: string }) {
           Tip me
         </a>
       </div>
-      <p className="whitespace-pre-line">{description}</p>
+      <p className="whitespace-pre-line">
+        <LinkedText text={description} />
+      </p>
       <div className="mt-2">
         <MasonryGallery keys={images} maxColumns={3} />
       </div>
