@@ -14,7 +14,11 @@ export default function ThemeMenu({ className }: { className?: string }) {
   const [theme, setTheme] = useAtom(themeAtom);
 
   return (
-    <Select value={theme} onValueChange={(v) => setTheme(themeSchema.parse(v))}>
+    <Select
+      items={THEMES}
+      value={theme}
+      onValueChange={(v) => setTheme(themeSchema.parse(v))}
+    >
       <SelectTrigger
         aria-label="Theme"
         className={cn(
@@ -24,7 +28,7 @@ export default function ThemeMenu({ className }: { className?: string }) {
       >
         <SelectValue />
       </SelectTrigger>
-      <SelectContent position="popper" className="z-60">
+      <SelectContent alignItemWithTrigger={false} className="z-60">
         {THEMES.map((t) => (
           <SelectItem key={t.value} value={t.value}>
             {t.label}

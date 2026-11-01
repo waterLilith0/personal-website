@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import { links, socials } from "@/site/content";
+import { links } from "@/site/content";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { cn } from "@/lib/utils";
@@ -43,7 +43,7 @@ function Navbar({ open, onToggle }: { open: boolean; onToggle: () => void }) {
             "lg:visible lg:static lg:h-12 lg:w-full lg:max-w-none lg:translate-x-0 lg:flex-row lg:items-center lg:overflow-visible lg:shadow-none",
           )}
         >
-          {[...links, ...socials].map((item) => {
+          {links.map((item) => {
             return (
               <li
                 key={item.link}
