@@ -2,7 +2,8 @@ import { Outlet, useLocation } from "react-router";
 import { useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "@/shared/Footer";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
+
 import { useApplyTheme } from "@/shared/theme/useResolvedTheme";
 
 function Layout() {
