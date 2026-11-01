@@ -30,8 +30,13 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         # Image names must be lowercase and free of whitespace, which a pasted secret may not be.
+        # The value is never printed, only what is wrong with it.
         run: |
           owner="$(printf '%s' "$DOCKER_USERNAME" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]')"
+          if [[ ! "$owner" =~ ^[a-z0-9]+([._-][a-z0-9]+)*$ ]]; then
+            echo "::error::DOCKER_USERNAME is not a plain Docker Hub username (length ${#owner}, contains '@': $([[ "$owner" == *@* ]] && echo yes || echo no), contains '/': $([[ "$owner" == */* ]] && echo yes || echo no)). Set it to the username only, not an email or a repository path."
+            exit 1
+          fi
           echo "WEBSITE_IMAGE=${owner}/personal-website" >> "$GITHUB_ENV"
 
       - name: Set up QEMU
