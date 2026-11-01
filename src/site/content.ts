@@ -1,29 +1,10 @@
-import {
-  faBluesky,
-  faGithub,
-  faLinkedin,
-} from "@fortawesome/free-brands-svg-icons";
-
 export const links = [
   { link: "/home", name: "Home" },
   { link: "/about-contact", name: "About" },
   { link: "/gallery", name: "Gallery" },
+  { link: "/vrc", name: "VRChat" },
   { link: "/yt-embed", name: "YouTube Embed" },
-  { link: "/dashboard", name: "API Dashboard" },
-];
-
-export const socials = [
-  { link: "https://github.com/waterlilith0", name: "GitHub", icon: faGithub },
-  {
-    link: "https://bsky.app/profile/waterlilith.space",
-    name: "Bluesky",
-    icon: faBluesky,
-  },
-  {
-    link: "https://www.linkedin.com/in/miriam-fix-0b96b12aa/",
-    name: "LinkedIn",
-    icon: faLinkedin,
-  },
+  { link: "https://dashboard.waterlilith.space", name: "API Dashboard" },
 ];
 
 export const cards = [

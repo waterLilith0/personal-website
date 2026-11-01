@@ -1,14 +1,95 @@
+import { LightGallery, LightGalleryItem } from "@lightgallery/react";
+import Thumbnail from "@lightgallery/react/plugins/thumbnail";
+import Zoom from "@lightgallery/react/plugins/zoom";
+import { useEffect, useState } from "react";
+import { IMAGE_EXT, fileUrl, listDir, thumbUrl } from "../../shared/media";
+
 // TODO: ask for permission to use sona pictures as comparison to textures I made
+
+const ROOT = "vrchat/";
+
+// `folder` is the directory name under vrchat/ in the media store.
+// Images in it are shown in a gallery, every other file is a download link.
+const PROJECTS = [
+  {
+    folder: "example-project",
+    title: "Example Project",
+    description:
+      "Placeholder project: replace this text and put images and asset files into vrchat/example-project/ in the media store.",
+  },
+];
+
+function Project({ folder, title, description }: (typeof PROJECTS)[number]) {
+  const [images, setImages] = useState<string[]>([]);
+  const [assets, setAssets] = useState<string[]>([]);
+
+  useEffect(() => {
+    const prefix = `${ROOT}${folder}/`;
+    listDir(prefix)
+      .then((entries) => {
+        const files = entries
+          .filter((e) => e.type === "file")
+          .map((e) => prefix + e.name)
+          .sort();
+        setImages(files.filter((k) => IMAGE_EXT.test(k)));
+        setAssets(files.filter((k) => !IMAGE_EXT.test(k)));
+      })
+      .catch(console.error);
+  }, [folder]);
+
+  return (
+    <section className="w-full max-w-5xl">
+      <h2>{title}</h2>
+      <p>{description}</p>
+      <LightGallery plugins={[Thumbnail, Zoom]} zoom={{ scale: 1.5 }}>
+        <div className="mt-2 columns-2 gap-2 sm:columns-3">
+          {images.map((key) => (
+            <LightGalleryItem
+              key={key}
+              item={{ src: fileUrl(key), thumb: thumbUrl(key) }}
+              href={fileUrl(key)}
+              className="mb-2 block break-inside-avoid"
+            >
+              <img
+                src={thumbUrl(key)}
+                alt=""
+                loading="lazy"
+                className="h-auto w-full rounded-md"
+              />
+            </LightGalleryItem>
+          ))}
+        </div>
+      </LightGallery>
+      {assets.length > 0 && (
+        <ul className="mt-2 list-disc pl-6">
+          {assets.map((key) => (
+            <li key={key}>
+              <a href={fileUrl(key)} download>
+                {key.split("/").pop()}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  );
+}
+
 function VRChatShowcase() {
   return (
     <>
       <title>VRC Portfolio and Showcase</title>
-      <div className="flex flex-col items-center justify-center w-full h-full p-4">
-        <h1>VRChat Showcase</h1>
-        <p>
-          This is a showcase of my work in VRChat Avatar development, including
-          textures I have made.
-        </p>
+      <div className="h-full w-full overflow-y-auto p-4">
+        <div className="flex flex-col items-center gap-8">
+          <h1>VRChat Showcase</h1>
+          <p>
+            This is a showcase of my work in VRChat Avatar development,
+            including textures I have made.
+          </p>
+          {PROJECTS.map((p) => (
+            <Project key={p.folder} {...p} />
+          ))}
+        </div>
       </div>
     </>
   );
