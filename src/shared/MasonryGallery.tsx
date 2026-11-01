@@ -19,9 +19,9 @@ const getColumnCount = () => 2 + QUERIES.filter((q) => matchMedia(q).matches).le
 // Each image is assigned to a column by its index and stays there. CSS `columns`
 // re-balances items between columns whenever an image finishes loading, which
 // makes everything but the first column jump around while scrolling.
-function MasonryGallery({ keys, maxColumns = 4 }: { keys: string[]; maxColumns?: number }) {
+function MasonryGallery({ keys, extraColumns = 0 }: { keys: string[]; extraColumns?: number }) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
-  const count = Math.min(useSyncExternalStore(subscribe, getColumnCount), maxColumns)
+  const count = useSyncExternalStore(subscribe, getColumnCount) + extraColumns
 
   const columns: number[][] = Array.from({ length: count }, () => [])
   keys.forEach((_, i) => columns[i % count].push(i))

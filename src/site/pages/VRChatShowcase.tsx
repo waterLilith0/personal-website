@@ -73,7 +73,7 @@ function Project({ folder }: { folder: string }) {
         <LinkedText text={description} />
       </p>
       <div className="mt-2">
-        <MasonryGallery keys={images} maxColumns={3} />
+        <MasonryGallery keys={images} extraColumns={2} />
       </div>
       {assets.length > 0 && (
         <ul className="mt-2 list-disc pl-6">
