@@ -70,3 +70,13 @@ Set these under **Settings → Secrets and variables → Actions**.
 | Variable | `FARO_STACK_ID`        | Faro stack ID                              |
 
 `VITE_FARO_ENABLED` and `VITE_FARO_URL` are public (they end up in the bundle), so they are hardcoded in `deploy.yml`.
+
+## License and Copyright
+
+**Source Code:**
+The source code for this website (HTML, CSS, JavaScript) is licensed under the [GNU General Public License v3.0 (GPLv3)](https://www.gnu.org/licenses/gpl-3.0.html). This project incorporates lightgallery.js, which is also licensed under the GPLv3.
+
+**Art, Images, and Assets:**
+All images, photographs, VRChat avatar designs, and commission showcases contained in this repository and on the live website are **Copyright © waterLilith0 - All Rights Reserved.**
+
+The GPLv3 license applies **ONLY** to the website's code. You may not download, copy, modify, distribute, or reuse any of the images, avatar designs, or VRChat assets from this website without explicit written permission.
