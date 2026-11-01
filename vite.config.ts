@@ -27,6 +27,8 @@ export default defineConfig(({ mode }) => {
               appId: env.FARO_APP_ID,
               stackId: env.FARO_STACK_ID,
               apiKey: env.FARO_API_KEY,
+              // .git isn't in the Docker build context, so CI passes the commit in.
+              gitHash: env.FARO_GIT_HASH || undefined,
               gzipContents: true,
             }) as PluginOption,
           ]

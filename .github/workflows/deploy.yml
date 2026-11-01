@@ -63,6 +63,7 @@ jobs:
             FARO_UPLOAD_ENDPOINT=${{ vars.FARO_UPLOAD_ENDPOINT }}
             FARO_APP_ID=${{ vars.FARO_APP_ID }}
             FARO_STACK_ID=${{ vars.FARO_STACK_ID }}
+            FARO_GIT_HASH=${{ github.sha }}
           # Mounted only for the build step, so it never ends up in an image layer.
           secrets: |
             faro_api_key=${{ secrets.FARO_API_KEY }}
