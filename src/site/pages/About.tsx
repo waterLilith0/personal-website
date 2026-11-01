@@ -1,12 +1,6 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Item, ItemMedia } from "@/components/ui/item";
-import { Link } from "react-router";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Item, ItemMedia } from '@/components/ui/item'
+import { Link } from 'react-router'
 
 function About() {
   return (
@@ -24,10 +18,10 @@ function About() {
             </CardHeader>
             <CardContent>
               <p>
-                I'm a Junior Developer with a passion for creating neat little
-                web applications. On this website I host a showcase of my work,
-                as well as a portfolio of favorite pictures I've taken. I also
-                have an API running over the same stack, check out the &gt;&gt;
+                I'm a Junior Developer with a passion for creating neat little web applications. On
+                this website I host a showcase of my work, as well as a portfolio of favorite
+                pictures I've taken. I also have an API running over the same stack, check out the
+                &gt;&gt;
                 <Link
                   to="/api"
                   className="hover:bg-gray-200 dark:hover:bg-gray-600 text-secondary-foreground dark:text-secondary-foreground px-1 rounded-md"
@@ -36,10 +30,7 @@ function About() {
                 </Link>
                 &lt;&lt; page for more information.
               </p>
-              <p>
-                I also work with VRChat Avatar development, for which I make my
-                own textures.
-              </p>
+              <p>I also work with VRChat Avatar development, for which I make my own textures.</p>
             </CardContent>
           </Card>
         </Item>
@@ -49,22 +40,17 @@ function About() {
               <CardTitle>Contact</CardTitle>
             </CardHeader>
             <CardContent>
-              <p>
-                Feel free to reach out if you have any questions or would like
-                to collaborate!
-              </p>
+              <p>Feel free to reach out if you have any questions or would like to collaborate!</p>
             </CardContent>
             <CardFooter>
               <p>Mail: </p>
-              <a href="mailto:contact@waterlilith.space">
-                contact@waterlilith.space
-              </a>
+              <a href="mailto:contact@waterlilith.space">contact@waterlilith.space</a>
             </CardFooter>
           </Card>
         </Item>
       </div>
     </>
-  );
+  )
 }
 
-export default About;
+export default About

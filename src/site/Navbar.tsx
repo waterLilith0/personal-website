@@ -1,9 +1,9 @@
-import { NavLink } from "react-router";
-import { links } from "@/site/content";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { cn } from "cn";
-import NavbarThemeMenu from "./ThemeMenu";
+import { NavLink } from 'react-router'
+import { links } from '@/site/content'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { cn } from 'cn'
+import NavbarThemeMenu from './ThemeMenu'
 
 function Navbar({ open, onToggle }: { open: boolean; onToggle: () => void }) {
   return (
@@ -14,13 +14,13 @@ function Navbar({ open, onToggle }: { open: boolean; onToggle: () => void }) {
       >
         <button
           type="button"
-          aria-label={open ? "Close navigation menu" : "Open navigation menu"}
+          aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
           aria-expanded={open}
           aria-controls="nav-links"
           onClick={onToggle}
           className={cn(
-            "fixed top-3 z-51 inline-flex size-11 items-center justify-center rounded-full bg-sidebar text-sidebar-foreground shadow-lg ring-1 ring-sidebar-border transition-[left] duration-200 hover:bg-sidebar-accent focus-visible:ring-2 focus-visible:ring-ring lg:hidden",
-            open ? "left-[calc(min(16rem,80vw)+0.75rem)]" : "left-3",
+            'fixed top-3 z-51 inline-flex size-11 items-center justify-center rounded-full bg-sidebar text-sidebar-foreground shadow-lg ring-1 ring-sidebar-border transition-[left] duration-200 hover:bg-sidebar-accent focus-visible:ring-2 focus-visible:ring-ring lg:hidden',
+            open ? 'left-[calc(min(16rem,80vw)+0.75rem)]' : 'left-3',
           )}
         >
           <FontAwesomeIcon icon={open ? faXmark : faBars} className="size-5" />
@@ -30,17 +30,17 @@ function Navbar({ open, onToggle }: { open: boolean; onToggle: () => void }) {
           aria-hidden="true"
           onClick={onToggle}
           className={cn(
-            "fixed inset-0 z-40 bg-black/50 transition-opacity lg:hidden",
-            open ? "opacity-100" : "pointer-events-none opacity-0",
+            'fixed inset-0 z-40 bg-black/50 transition-opacity lg:hidden',
+            open ? 'opacity-100' : 'pointer-events-none opacity-0',
           )}
         />
 
         <ul
           id="nav-links"
           className={cn(
-            "fixed inset-y-0 left-0 z-50 flex h-dvh w-64 max-w-[80vw] flex-col items-stretch overflow-y-auto bg-sidebar m-0 p-0 list-none shadow-xl transition-[transform,visibility] duration-200",
-            open ? "translate-x-0" : "-translate-x-full invisible",
-            "lg:visible lg:static lg:h-12 lg:w-full lg:max-w-none lg:translate-x-0 lg:flex-row lg:items-center lg:overflow-visible lg:shadow-none",
+            'fixed inset-y-0 left-0 z-50 flex h-dvh w-64 max-w-[80vw] flex-col items-stretch overflow-y-auto bg-sidebar m-0 p-0 list-none shadow-xl transition-[transform,visibility] duration-200',
+            open ? 'translate-x-0' : '-translate-x-full invisible',
+            'lg:visible lg:static lg:h-12 lg:w-full lg:max-w-none lg:translate-x-0 lg:flex-row lg:items-center lg:overflow-visible lg:shadow-none',
           )}
         >
           {links.map((item) => {
@@ -58,7 +58,7 @@ function Navbar({ open, onToggle }: { open: boolean; onToggle: () => void }) {
                   {item.name}
                 </NavLink>
               </li>
-            );
+            )
           })}
           <li className="flex min-h-12 lg:h-full w-full items-center justify-center px-5 lg:w-auto lg:ml-auto">
             <NavbarThemeMenu className="h-11 lg:h-8 w-full lg:w-32 border-transparent bg-transparent hover:bg-gray-500 text-base lg:text-sm" />
@@ -66,7 +66,7 @@ function Navbar({ open, onToggle }: { open: boolean; onToggle: () => void }) {
         </ul>
       </nav>
     </>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar

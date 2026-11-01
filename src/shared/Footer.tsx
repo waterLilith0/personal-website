@@ -1,6 +1,6 @@
-import { Link } from "react-router";
-import { footerRows } from "./footerdata";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from 'react-router'
+import { footerRows } from './footerdata'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default function Footer() {
   return (
@@ -11,11 +11,9 @@ export default function Footer() {
             <ul key={i} className="flex flex-wrap gap-x-5 gap-y-1">
               {row.links.map((link) => (
                 <li key={link.url}>
-                  {link.url.substring(0, 4) === "http" ? (
+                  {link.url.startsWith('http') ? (
                     <>
-                      {link.icon && (
-                        <FontAwesomeIcon icon={link.icon} className="mr-2" />
-                      )}
+                      {link.icon && <FontAwesomeIcon icon={link.icon} className="mr-2" />}
                       <a
                         href={link.url}
                         target="_blank"
@@ -42,5 +40,5 @@ export default function Footer() {
         </p>
       </div>
     </footer>
-  );
+  )
 }

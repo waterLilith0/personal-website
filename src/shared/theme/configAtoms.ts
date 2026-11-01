@@ -1,8 +1,5 @@
-import { atomWithStorage } from "jotai/utils";
+import { atomWithStorage } from 'jotai/utils'
 
-export const themeAtom = atomWithStorage<"light" | "dark" | "system">(
-  "theme",
-  "dark",
-  undefined,
-  { getOnInit: true },
-);
+export const themeAtom = atomWithStorage<'light' | 'dark' | 'system'>('theme', 'dark', undefined, {
+  getOnInit: true,
+})

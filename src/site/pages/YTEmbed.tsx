@@ -11,7 +11,7 @@ function YTEmbed() {
         ></iframe>
       </div>
     </>
-  );
+  )
 }
 
-export default YTEmbed;
+export default YTEmbed

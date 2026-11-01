@@ -1,11 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { cards } from "@/site/content";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { cards } from '@/site/content'
 
 function Home() {
   return (
@@ -13,9 +7,8 @@ function Home() {
       <title>Home</title>
       <h1>Main Page</h1>
       <p>
-        This is my own little website/tinkering space. I'm gonna continue
-        updating this as I go (might be a good idea to look at this as kinda my
-        own little blog I suppose).
+        This is my own little website/tinkering space. I'm gonna continue updating this as I go
+        (might be a good idea to look at this as kinda my own little blog I suppose).
       </p>
       <section className="flex flex-col gap-3">
         {cards.map((card, i) => (
@@ -39,7 +32,7 @@ function Home() {
         ))}
       </section>
     </>
-  );
+  )
 }
 
-export default Home;
+export default Home

@@ -1,7 +1,7 @@
 {
   "name": "personal-page",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,8 +9,8 @@
     "lint": "eslint --config configs/eslint.config.js .",
     "preview": "vite preview",
     "update-patches": "npx npm-check-updates --target patch -u && npm install",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css,json}\" --ignore-path configs/.prettierignore",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json}\" --ignore-path configs/.prettierignore",
+    "format": "prettier --config configs/.prettierrc --ignore-path configs/.prettierignore --write \"src/**/*.{ts,tsx,css,json}\"",
+    "format:check": "prettier --config configs/.prettierrc --ignore-path configs/.prettierignore --check \"src/**/*.{ts,tsx,css,json}\"",
     "deps:clean": "knip --fix"
   },
   "dependencies": {
