@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { IMAGE_EXT, listDir } from '../../shared/media'
+import { IMAGE_EXT, VRCHAT_ROOT, listDir } from '../../shared/media'
 import MasonryGallery from '../../shared/MasonryGallery'
 
 interface GalleryImage {
@@ -13,7 +13,9 @@ async function listImages(prefix = ''): Promise<GalleryImage[]> {
     .filter((e) => e.type === 'file' && IMAGE_EXT.test(e.name))
     .map((e) => ({ key: prefix + e.name, mtime: Date.parse(e.mtime) }))
   const nested = await Promise.all(
-    entries.filter((e) => e.type === 'directory').map((e) => listImages(`${prefix}${e.name}/`)),
+    entries
+      .filter((e) => e.type === 'directory' && `${prefix}${e.name}/` !== VRCHAT_ROOT)
+      .map((e) => listImages(`${prefix}${e.name}/`)),
   )
   return [...files, ...nested.flat()]
 }

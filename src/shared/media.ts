@@ -1,6 +1,8 @@
 // Proxied to the internal gallery stack by nginx.conf
 export const MEDIA_URL = '/media'
 export const IMAGE_EXT = /\.(jpe?g|png|webp|avif|gif)$/i
+// Shown on the VRChat Showcase page only, not in the main gallery.
+export const VRCHAT_ROOT = 'vrchat/'
 
 export interface ListingEntry {
   name: string
