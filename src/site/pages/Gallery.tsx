@@ -2,29 +2,15 @@ import { LightGallery, LightGalleryItem } from "@lightgallery/react";
 import Thumbnail from "@lightgallery/react/plugins/thumbnail";
 import Zoom from "@lightgallery/react/plugins/zoom";
 import { useEffect, useState } from "react";
-
-// Proxied to the internal gallery stack by nginx.conf
-const MEDIA_URL = "/media";
+import { IMAGE_EXT, fileUrl, listDir, thumbUrl } from "../../shared/media";
 
 interface GalleryImage {
   key: string;
   mtime: number;
 }
 
-interface ListingEntry {
-  name: string;
-  type: "file" | "directory";
-  mtime: string;
-}
-
-const IMAGE_EXT = /\.(jpe?g|png|webp|avif|gif)$/i;
-
-const encodeKey = (key: string) =>
-  key.split("/").map(encodeURIComponent).join("/");
-
 async function listImages(prefix = ""): Promise<GalleryImage[]> {
-  const res = await fetch(`${MEDIA_URL}/files/${encodeKey(prefix)}`);
-  const entries = (await res.json()) as ListingEntry[];
+  const entries = await listDir(prefix);
   const nested = await Promise.all(
     entries.map((e) =>
       e.type === "directory"
@@ -53,8 +39,8 @@ function Gallery() {
         <LightGallery plugins={[Thumbnail, Zoom]} zoom={{ scale: 1.5 }}>
           <div className="columns-2 gap-2 sm:columns-3 lg:columns-4">
             {images.map(({ key }) => {
-              const src = `${MEDIA_URL}/files/${encodeKey(key)}`;
-              const thumb = `${MEDIA_URL}/thumb/insecure/thumb/plain/local:///${encodeKey(key)}`;
+              const src = fileUrl(key);
+              const thumb = thumbUrl(key);
               return (
                 <LightGalleryItem
                   key={key}
