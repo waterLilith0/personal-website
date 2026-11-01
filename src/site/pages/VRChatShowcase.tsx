@@ -1,9 +1,6 @@
-import { LightGallery, LightGalleryItem } from '@lightgallery/react'
-import Thumbnail from '@lightgallery/react/plugins/thumbnail'
-import Zoom from '@lightgallery/react/plugins/zoom'
 import { useEffect, useState } from 'react'
-import { IMAGE_EXT, fileUrl, listDir, thumbUrl } from '../../shared/media'
-import LazyThumb from '../../shared/LazyThumb'
+import { IMAGE_EXT, fileUrl, listDir } from '../../shared/media'
+import MasonryGallery from '../../shared/MasonryGallery'
 
 // TODO: ask for permission to use sona pictures as comparison to textures I made
 
@@ -42,20 +39,9 @@ function Project({ folder, title, description }: (typeof PROJECTS)[number]) {
     <section className="w-full max-w-5xl">
       <h2>{title}</h2>
       <p>{description}</p>
-      <LightGallery plugins={[Thumbnail, Zoom]} zoom={{ scale: 1.5 }}>
-        <div className="mt-2 columns-2 gap-2 sm:columns-3">
-          {images.map((key) => (
-            <LightGalleryItem
-              key={key}
-              item={{ src: fileUrl(key), thumb: thumbUrl(key) }}
-              href={fileUrl(key)}
-              className="mb-2 block break-inside-avoid"
-            >
-              <LazyThumb src={thumbUrl(key)} />
-            </LightGalleryItem>
-          ))}
-        </div>
-      </LightGallery>
+      <div className="mt-2">
+        <MasonryGallery keys={images} maxColumns={3} />
+      </div>
       {assets.length > 0 && (
         <ul className="mt-2 list-disc pl-6">
           {assets.map((key) => (

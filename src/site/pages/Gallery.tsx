@@ -1,9 +1,6 @@
-import { LightGallery, LightGalleryItem } from '@lightgallery/react'
-import Thumbnail from '@lightgallery/react/plugins/thumbnail'
-import Zoom from '@lightgallery/react/plugins/zoom'
 import { useEffect, useState } from 'react'
-import { IMAGE_EXT, fileUrl, listDir, thumbUrl } from '../../shared/media'
-import LazyThumb from '../../shared/LazyThumb'
+import { IMAGE_EXT, listDir } from '../../shared/media'
+import MasonryGallery from '../../shared/MasonryGallery'
 
 interface GalleryImage {
   key: string
@@ -34,24 +31,7 @@ function Gallery() {
     <>
       <title>Gallery</title>
       <div className="h-full w-full overflow-y-auto p-2">
-        <LightGallery plugins={[Thumbnail, Zoom]} zoom={{ scale: 1.5 }}>
-          <div className="columns-2 gap-2 sm:columns-3 lg:columns-4">
-            {images.map(({ key }) => {
-              const src = fileUrl(key)
-              const thumb = thumbUrl(key)
-              return (
-                <LightGalleryItem
-                  key={key}
-                  item={{ src, thumb }}
-                  href={src}
-                  className="mb-2 block break-inside-avoid"
-                >
-                  <LazyThumb src={thumb} />
-                </LightGalleryItem>
-              )
-            })}
-          </div>
-        </LightGallery>
+        <MasonryGallery keys={images.map((i) => i.key)} />
       </div>
     </>
   )
