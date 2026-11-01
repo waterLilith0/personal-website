@@ -5,7 +5,6 @@ COPY package*.json ./
 RUN npm ci
 COPY . .
 # Vite inlines these at build time
-ARG VITE_GALLERY_URL
 ARG VITE_FARO_ENABLED=false
 ARG VITE_FARO_URL
 ARG FARO_UPLOAD_ENDPOINT
