@@ -16,11 +16,7 @@ function About() {
         <h1 className="pb-6">About Page</h1>
         <Item variant="muted" className="w-full flex-nowrap">
           <ItemMedia>
-            <img
-              src="https://pub-b6429b14f529453ba6124fb797bc3df6.r2.dev/0a.jpg"
-              alt="picture of me"
-              width="200px"
-            />
+            <img src="/about.jpg" alt="picture of me" width="200px" />
           </ItemMedia>
           <Card className="shrink">
             <CardHeader>

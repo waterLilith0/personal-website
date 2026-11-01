@@ -1,8 +1,8 @@
 import { NavLink } from "react-router";
-import { links, socials } from "@/site/content";
+import { links } from "@/site/content";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
-import { cn } from "@/lib/utils";
+import { cn } from "cn";
 import NavbarThemeMenu from "./ThemeMenu";
 
 function Navbar({ open, onToggle }: { open: boolean; onToggle: () => void }) {
@@ -43,17 +43,17 @@ function Navbar({ open, onToggle }: { open: boolean; onToggle: () => void }) {
             "lg:visible lg:static lg:h-12 lg:w-full lg:max-w-none lg:translate-x-0 lg:flex-row lg:items-center lg:overflow-visible lg:shadow-none",
           )}
         >
-          {[...links, ...socials].map((item) => {
+          {links.map((item) => {
             return (
               <li
                 key={item.link}
-                className="flex min-h-12 lg:h-full w-full justify-center items-center lg:first:justify-self-start"
+                className="flex min-h-12 lg:h-full w-full lg:w-auto justify-center items-center"
               >
                 {/* TODO: render icons */}
                 <NavLink
                   onClick={onToggle}
                   to={item.link}
-                  className="flex h-full w-full text-base py-3 lg:py-0 no-underline justify-center items-center px-5 hover:bg-gray-500 hover:h-full hover:w-full"
+                  className="flex h-full w-full text-base py-3 lg:py-0 no-underline justify-center items-center px-5 hover:bg-gray-500"
                 >
                   {item.name}
                 </NavLink>
