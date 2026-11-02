@@ -32,10 +32,22 @@ async function readText(key: string): Promise<string> {
   return res.ok ? (await res.text()).trim() : ''
 }
 
-function Project({ folder }: { folder: string }) {
+function parseDescription(text: string): { date: number | null; description: string } {
+  const [firstLine, ...descriptionLines] = text.split(/\r?\n/)
+  const date = /^Date:\s*(\d{4}-\d{2}-\d{2})\s*$/i.exec(firstLine)?.[1]
+  if (!date) return { date: null, description: text }
+
+  const timestamp = Date.parse(`${date}T00:00:00.000Z`)
+  if (Number.isNaN(timestamp) || new Date(timestamp).toISOString().slice(0, 10) !== date) {
+    return { date: null, description: text }
+  }
+
+  return { date: timestamp, description: descriptionLines.join('\n').trim() }
+}
+
+function Project({ folder, description }: { folder: string; description: string }) {
   const [images, setImages] = useState<string[]>([])
   const [assets, setAssets] = useState<string[]>([])
-  const [description, setDescription] = useState('')
 
   useEffect(() => {
     const prefix = `${VRCHAT_ROOT}${folder}/`
@@ -47,68 +59,74 @@ function Project({ folder }: { folder: string }) {
           .sort()
         setImages(files.filter((k) => IMAGE_EXT.test(k)))
         setAssets(files.filter((k) => !IMAGE_EXT.test(k) && !k.endsWith(DESCRIPTION_FILE)))
-        if (files.includes(prefix + DESCRIPTION_FILE)) {
-          return readText(prefix + DESCRIPTION_FILE).then(setDescription)
-        }
       })
       .catch(console.error)
   }, [folder])
 
   return (
-    <section>
-      <title>VRChat Comission Showcase</title>
-      <div className="flex flex-col items-center justify-center w-full h-full">
-        <h1 className="p-6">VRChat Comission Showcase</h1>
-        <p>All the VRChat avatars I've been comissioned for so far.</p>
-        <div className="flex items-start justify-between gap-4">
-          <h2>{toTitle(folder)}</h2>
-          <a
-            href="https://ko-fi.com/F2F41FAAQB"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cn(
-              buttonVariants(),
-              'shrink-0 bg-[#72a4f2] text-white hover:bg-[#72a4f2]/85',
-            )}
-          >
-            Tip me
-          </a>
-        </div>
+    <section className="w-full max-w-5xl">
+      <div className="flex items-start justify-between gap-4">
+        <h2>{toTitle(folder)}</h2>
+        <a
+          href="https://ko-fi.com/F2F41FAAQB"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={cn(buttonVariants(), 'shrink-0 bg-[#72a4f2] text-white hover:bg-[#72a4f2]/85')}
+        >
+          Tip me
+        </a>
+      </div>
+      {description && (
         <p className="whitespace-pre-line">
           <LinkedText text={description} />
         </p>
-        <div className="mt-2">
-          <MasonryGallery keys={images} extraColumns={2} />
-        </div>
-        {assets.length > 0 && (
-          <ul className="mt-2 list-disc pl-6">
-            {assets.map((key) => (
-              <li key={key}>
-                <a href={fileUrl(key)} download>
-                  {key.split('/').pop()}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
+      )}
+      <div className="mt-2">
+        <MasonryGallery keys={images} extraColumns={2} />
       </div>
+      {assets.length > 0 && (
+        <ul className="mt-2 list-disc pl-6">
+          {assets.map((key) => (
+            <li key={key}>
+              <a href={fileUrl(key)} download>
+                {key.split('/').pop()}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   )
 }
 
 function VRChatShowcase() {
-  const [folders, setFolders] = useState<string[]>([])
+  const [projects, setProjects] = useState<{ folder: string; description: string }[]>([])
 
   useEffect(() => {
     listDir(VRCHAT_ROOT)
-      .then((entries) =>
-        setFolders(
+      .then(async (entries) => {
+        const projects = await Promise.all(
           entries
-            .filter((e) => e.type === 'directory')
-            .sort((a, b) => Date.parse(a.mtime) - Date.parse(b.mtime))
-            .map((e) => e.name),
-        ),
-      )
+            .filter((entry) => entry.type === 'directory')
+            .map(async (entry) => {
+              const text = await readText(`${VRCHAT_ROOT}${entry.name}/${DESCRIPTION_FILE}`).catch(
+                (error) => {
+                  console.error(error)
+                  return ''
+                },
+              )
+              return { folder: entry.name, ...parseDescription(text) }
+            }),
+        )
+
+        setProjects(
+          projects.sort((a, b) => {
+            const dateDifference =
+              (b.date ?? Number.NEGATIVE_INFINITY) - (a.date ?? Number.NEGATIVE_INFINITY)
+            return dateDifference || a.folder.localeCompare(b.folder)
+          }),
+        )
+      })
       .catch(console.error)
   }, [])
 
@@ -122,8 +140,8 @@ function VRChatShowcase() {
             This is a showcase of my work in VRChat Avatar development, including textures I have
             made.
           </p>
-          {folders.map((folder) => (
-            <Project key={folder} folder={folder} />
+          {projects.map(({ folder, description }) => (
+            <Project key={folder} folder={folder} description={description} />
           ))}
         </div>
       </div>
