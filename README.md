@@ -34,6 +34,7 @@ Vite reads them from the environment or from a `.env.local` file (git-ignored).
 | `VITE_ENABLE_MOCKS`   | `true` enables the MSW mocks, dev server only                    |
 | `VITE_FARO_ENABLED`   | `true` turns on Faro in the browser                              |
 | `VITE_FARO_URL`       | Faro collector URL                                               |
+| `VITE_APP_ENV`        | Faro `environment` label, defaults to the Vite mode              |
 | `FARO_API_KEY`        | Enables sourcemap upload to Faro at build time                   |
 | `FARO_UPLOAD_ENDPOINT`, `FARO_APP_ID`, `FARO_STACK_ID` | Faro sourcemap upload target, used with `FARO_API_KEY` |
 
@@ -69,7 +70,7 @@ Set these under **Settings → Secrets and variables → Actions**.
 | Variable | `FARO_APP_ID`          | Faro app ID                                |
 | Variable | `FARO_STACK_ID`        | Faro stack ID                              |
 
-`VITE_FARO_ENABLED` and `VITE_FARO_URL` are public (they end up in the bundle), so they are hardcoded in `deploy.yml`.
+`VITE_FARO_ENABLED` and `VITE_FARO_URL` are public (they end up in the bundle), so they are hardcoded in `deploy.yml`. `VITE_APP_ENV` is `production` on `main` and the branch name otherwise.
 
 ## License and Copyright
 

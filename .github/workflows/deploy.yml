@@ -59,7 +59,8 @@ jobs:
           # Baked into the static bundle and visible to every visitor, so none of these are secrets.
           build-args: |
             VITE_FARO_ENABLED=true
-            VITE_FARO_URL=https://faro.waterlilith.space/collect
+            VITE_FARO_URL=https://faro-collector-prod-eu-west-2.grafana.net/collect/f974a455dacacf8f62e85e96567d7ff6
+            VITE_APP_ENV=${{ github.ref_name == 'main' && 'production' || github.ref_name }}
             FARO_UPLOAD_ENDPOINT=${{ vars.FARO_UPLOAD_ENDPOINT }}
             FARO_APP_ID=${{ vars.FARO_APP_ID }}
             FARO_STACK_ID=${{ vars.FARO_STACK_ID }}

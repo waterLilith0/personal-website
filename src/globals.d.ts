@@ -4,4 +4,5 @@ interface ImportMetaEnv {
   readonly VITE_ENABLE_MOCKS?: string
   readonly VITE_FARO_ENABLED?: string
   readonly VITE_FARO_URL?: string
+  readonly VITE_APP_ENV?: string
 }

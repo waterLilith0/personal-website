@@ -6,6 +6,10 @@ export const env = {
   faro: {
     enabled: import.meta.env.VITE_FARO_ENABLED === 'true',
     url: import.meta.env.VITE_FARO_URL,
-    app: { name: 'horizon-ui', version: __APP_VERSION__, environment: mode },
+    app: {
+      name: 'horizon-ui',
+      version: __APP_VERSION__,
+      environment: import.meta.env.VITE_APP_ENV || mode,
+    },
   },
 }
