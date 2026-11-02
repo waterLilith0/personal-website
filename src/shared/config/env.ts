@@ -9,7 +9,7 @@ export const env = {
     app: {
       name: 'horizon-ui',
       version: __APP_VERSION__,
-      environment: import.meta.env.VITE_APP_ENV || mode,
+      environment: import.meta.env.VITE_APP_ENV ?? mode,
     },
   },
   dashboardUrl: import.meta.env.VITE_DASHBOARD_URL,
