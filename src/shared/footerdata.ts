@@ -1,4 +1,5 @@
 import { faBluesky, faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import { env } from '@/shared/config/env'
 
 export const footerRows = [
   {
@@ -24,7 +25,7 @@ export const footerRows = [
         text: 'Impressum',
       },
       {
-        url: 'https://dashboard.waterlilith.space',
+        url: env.dashboardUrl ?? '#',
         text: 'Dashboard',
       },
       {

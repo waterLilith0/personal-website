@@ -5,4 +5,5 @@ interface ImportMetaEnv {
   readonly VITE_FARO_ENABLED?: string
   readonly VITE_FARO_URL?: string
   readonly VITE_APP_ENV?: string
+  readonly VITE_DASHBOARD_URL?: string
 }

@@ -30,12 +30,16 @@ function Gallery() {
   }, [])
 
   return (
-    <>
+    <section>
       <title>Gallery</title>
-      <div className="h-full w-full overflow-y-auto p-2">
-        <MasonryGallery keys={images.map((i) => i.key)} />
+      <div className="flex flex-col items-center justify-center w-full h-full">
+        <h1 className="p-6">Gallery</h1>
+        <p>All my favorite pictures in one place.</p>
+        <article className="h-full w-full overflow-y-auto p-2">
+          <MasonryGallery keys={images.map((i) => i.key)} />
+        </article>
       </div>
-    </>
+    </section>
   )
 }
 

@@ -4,8 +4,6 @@ import { cn } from 'cn'
 import { IMAGE_EXT, VRCHAT_ROOT, fileUrl, listDir } from '../../shared/media'
 import MasonryGallery from '../../shared/MasonryGallery'
 
-// TODO: ask for permission to use sona pictures as comparison to textures I made
-
 const DESCRIPTION_FILE = 'description.txt'
 
 // Every folder under vrchat/ in the media store is a project. Its title is the
@@ -57,35 +55,43 @@ function Project({ folder }: { folder: string }) {
   }, [folder])
 
   return (
-    <section className="w-full max-w-5xl">
-      <div className="flex items-start justify-between gap-4">
-        <h2>{toTitle(folder)}</h2>
-        <a
-          href="https://ko-fi.com/F2F41FAAQB"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={cn(buttonVariants(), 'shrink-0 bg-[#72a4f2] text-white hover:bg-[#72a4f2]/85')}
-        >
-          Tip me
-        </a>
+    <section>
+      <title>VRChat Comission Showcase</title>
+      <div className="flex flex-col items-center justify-center w-full h-full">
+        <h1 className="p-6">VRChat Comission Showcase</h1>
+        <p>All the VRChat avatars I've been comissioned for so far.</p>
+        <div className="flex items-start justify-between gap-4">
+          <h2>{toTitle(folder)}</h2>
+          <a
+            href="https://ko-fi.com/F2F41FAAQB"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn(
+              buttonVariants(),
+              'shrink-0 bg-[#72a4f2] text-white hover:bg-[#72a4f2]/85',
+            )}
+          >
+            Tip me
+          </a>
+        </div>
+        <p className="whitespace-pre-line">
+          <LinkedText text={description} />
+        </p>
+        <div className="mt-2">
+          <MasonryGallery keys={images} extraColumns={2} />
+        </div>
+        {assets.length > 0 && (
+          <ul className="mt-2 list-disc pl-6">
+            {assets.map((key) => (
+              <li key={key}>
+                <a href={fileUrl(key)} download>
+                  {key.split('/').pop()}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-      <p className="whitespace-pre-line">
-        <LinkedText text={description} />
-      </p>
-      <div className="mt-2">
-        <MasonryGallery keys={images} extraColumns={2} />
-      </div>
-      {assets.length > 0 && (
-        <ul className="mt-2 list-disc pl-6">
-          {assets.map((key) => (
-            <li key={key}>
-              <a href={fileUrl(key)} download>
-                {key.split('/').pop()}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
     </section>
   )
 }
@@ -99,8 +105,8 @@ function VRChatShowcase() {
         setFolders(
           entries
             .filter((e) => e.type === 'directory')
-            .map((e) => e.name)
-            .sort(),
+            .sort((a, b) => Date.parse(a.mtime) - Date.parse(b.mtime))
+            .map((e) => e.name),
         ),
       )
       .catch(console.error)

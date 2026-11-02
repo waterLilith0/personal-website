@@ -13,13 +13,13 @@ function Layout() {
   const isIframePage = location.pathname === '/yt-embed'
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   return (
-    <div className={'flex flex-col'}>
+    <div className="flex flex-col h-screen">
       <Navbar open={mobileMenuOpen} onToggle={() => setMobileMenuOpen((v) => !v)} />
       <main className="flex flex-col bg-secondary items-center grow">
         <div
           className={cn(
-            'flex flex-col items-center bg-primary w-[80%] p-2',
-            isIframePage ? 'overflow-hidden h-full' : 'overflow-hidden',
+            'flex flex-col items-center bg-primary lg:w-[80%] w-full',
+            isIframePage ? 'overflow-hidden' : 'overflow-hidden',
           )}
         >
           <Outlet />
