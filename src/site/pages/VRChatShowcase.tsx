@@ -4,8 +4,6 @@ import { cn } from 'cn'
 import { IMAGE_EXT, VRCHAT_ROOT, fileUrl, listDir } from '../../shared/media'
 import MasonryGallery from '../../shared/MasonryGallery'
 
-// TODO: ask for permission to use sona pictures as comparison to textures I made
-
 const DESCRIPTION_FILE = 'description.txt'
 
 // Every folder under vrchat/ in the media store is a project. Its title is the
@@ -99,8 +97,8 @@ function VRChatShowcase() {
         setFolders(
           entries
             .filter((e) => e.type === 'directory')
-            .map((e) => e.name)
-            .sort(),
+            .sort((a, b) => Date.parse(a.mtime) - Date.parse(b.mtime))
+            .map((e) => e.name),
         ),
       )
       .catch(console.error)
