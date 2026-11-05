@@ -15,27 +15,27 @@ npm ci
 npm run dev
 ```
 
-| Script                 | What it does                                  |
-| ---------------------- | --------------------------------------------- |
-| `npm run dev`          | Vite dev server                               |
-| `npm run build`        | `tsc -b` (app and node), `vite build`       |
-| `npm run preview`      | Serve the production build locally            |
-| `npm run lint`         | ESLint (`configs/eslint.config.js`)           |
-| `npm run format`       | Prettier, write                               |
-| `npm run format:check` | Prettier, check only                          |
-| `npm run deps:clean`   | Remove unused dependencies with knip          |
+| Script                 | What it does                          |
+| ---------------------- | ------------------------------------- |
+| `npm run dev`          | Vite dev server                       |
+| `npm run build`        | `tsc -b` (app and node), `vite build` |
+| `npm run preview`      | Serve the production build locally    |
+| `npm run lint`         | ESLint (`configs/eslint.config.js`)   |
+| `npm run format`       | Prettier, write                       |
+| `npm run format:check` | Prettier, check only                  |
+| `npm run deps:clean`   | Remove unused dependencies with knip  |
 
 ### Environment variables
 
 Vite reads them from the environment or from a `.env.local` file (git-ignored).
 
-| Variable              | Purpose                                                          |
-| --------------------- | ---------------------------------------------------------------- |
-| `VITE_ENABLE_MOCKS`   | `true` enables the MSW mocks, dev server only                    |
-| `VITE_FARO_ENABLED`   | `true` turns on Faro in the browser                              |
-| `VITE_FARO_URL`       | Faro collector URL                                               |
-| `VITE_APP_ENV`        | Faro `environment` label, defaults to the Vite mode              |
-| `FARO_API_KEY`        | Enables sourcemap upload to Faro at build time                   |
+| Variable                                               | Purpose                                                |
+| ------------------------------------------------------ | ------------------------------------------------------ |
+| `VITE_ENABLE_MOCKS`                                    | `true` enables the MSW mocks, dev server only          |
+| `VITE_FARO_ENABLED`                                    | `true` turns on Faro in the browser                    |
+| `VITE_FARO_URL`                                        | Faro collector URL                                     |
+| `VITE_APP_ENV`                                         | Faro `environment` label, defaults to the Vite mode    |
+| `FARO_API_KEY`                                         | Enables sourcemap upload to Faro at build time         |
 | `FARO_UPLOAD_ENDPOINT`, `FARO_APP_ID`, `FARO_STACK_ID` | Faro sourcemap upload target, used with `FARO_API_KEY` |
 
 Without `FARO_API_KEY` the build skips sourcemaps and the upload.
@@ -54,21 +54,25 @@ nginx proxies `/media/` to a `gallery` container (the separate gallery-server re
 
 ## CI/CD
 
-- **Frontend** (`.github/workflows/frontend.yml`): runs on pull requests and is reused by the deploy workflow. It runs `npm ci` and `npm run build` (type check and bundle).
-- **CI/CD Pipeline** (`.github/workflows/deploy.yml`): runs on pushes to `dev` and `main`. It runs the frontend checks first, then builds the `linux/arm64` image and pushes it to Docker Hub as `<DOCKER_USERNAME>/personal-website:dev` (from `dev`) or `:prod` (from `main`).
+Branch flow: `dev` → PR → `staging` → PR → `main`.
+
+- **Frontend** (`.github/workflows/frontend.yml`): runs on pull requests, on pushes to `dev`, and is reused by the deploy workflow. It runs the build, lint and Prettier checks. `dev` never builds an image.
+- **CI/CD Pipeline** (`.github/workflows/deploy.yml`): runs on pushes to `staging` and `main`. It runs the frontend checks first, then builds the `linux/arm64` image and pushes it to Docker Hub as `<DOCKER_USERNAME>/personal-website:staging` (from `staging`, GitHub environment `staging`) or `:prod` (from `main`, GitHub environment `master`).
+
+`VITE_APP_ENV` is `prod` on `main` and `staging` on `staging`.
 
 ### GitHub configuration
 
 Set these under **Settings → Secrets and variables → Actions**.
 
-| Type     | Name                   | Purpose                                    |
-| -------- | ---------------------- | ------------------------------------------ |
-| Secret   | `DOCKER_USERNAME`      | Docker Hub user, also the image namespace  |
-| Secret   | `DOCKER_PASSWORD`      | Docker Hub password or access token        |
-| Secret   | `FARO_API_KEY`         | Faro sourcemap upload key                  |
-| Variable | `FARO_UPLOAD_ENDPOINT` | Faro sourcemap upload endpoint             |
-| Variable | `FARO_APP_ID`          | Faro app ID                                |
-| Variable | `FARO_STACK_ID`        | Faro stack ID                              |
+| Type     | Name                   | Purpose                                   |
+| -------- | ---------------------- | ----------------------------------------- |
+| Secret   | `DOCKER_USERNAME`      | Docker Hub user, also the image namespace |
+| Secret   | `DOCKER_PASSWORD`      | Docker Hub password or access token       |
+| Secret   | `FARO_API_KEY`         | Faro sourcemap upload key                 |
+| Variable | `FARO_UPLOAD_ENDPOINT` | Faro sourcemap upload endpoint            |
+| Variable | `FARO_APP_ID`          | Faro app ID                               |
+| Variable | `FARO_STACK_ID`        | Faro stack ID                             |
 
 `VITE_FARO_ENABLED` and `VITE_FARO_URL` are public (they end up in the bundle), so they are hardcoded in `deploy.yml`. `VITE_APP_ENV` is `production` on `main` and the branch name otherwise.
 
