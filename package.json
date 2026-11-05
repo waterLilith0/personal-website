@@ -1,7 +1,8 @@
 {
   "name": "personal-page",
   "private": true,
-  "version": "1.0.0",
+  "license": "GPL-3.0-only",
+  "version": "1.2.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,11 +10,12 @@
     "lint": "eslint --config configs/eslint.config.js .",
     "preview": "vite preview",
     "update-patches": "npx npm-check-updates --target patch -u && npm install",
-    "format": "prettier --write \"src/**/*.{ts,tsx,css,json}\" --ignore-path configs/.prettierignore",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json}\" --ignore-path configs/.prettierignore",
+    "format": "prettier --config configs/.prettierrc --ignore-path configs/.prettierignore --write \"src/**/*.{ts,tsx,css,json}\"",
+    "format:check": "prettier --config configs/.prettierrc --ignore-path configs/.prettierignore --check \"src/**/*.{ts,tsx,css,json}\"",
     "deps:clean": "knip --fix"
   },
   "dependencies": {
+    "@base-ui/react": "^1.9.0",
     "@fontsource-variable/geist": "^5.2.9",
     "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
@@ -22,9 +24,12 @@
     "@fortawesome/react-fontawesome": "^3.3.1",
     "@grafana/faro-react": "^2.12.1",
     "@grafana/faro-web-tracing": "^2.12.1",
+    "@lightgallery/react": "^3.0.0",
+    "@remixicon/react": "^4.9.0",
     "@tailwindcss/vite": "^4.3.3",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "cn": "^0.5.0",
+    "cn": "^0.5.1",
     "jotai": "^2.20.3",
     "lightgallery": "^3.0.0",
     "react": "^19.2.9",

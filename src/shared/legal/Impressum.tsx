@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 export default function Impressum() {
   return (
@@ -31,10 +25,8 @@ export default function Impressum() {
           <p>
             <strong>Tel.:</strong> +49 172 7264849
             <br />
-            <strong>E-Mail:</strong>{" "}
-            <a href="mailto:contact@waterlilith.space">
-              contact@waterlilith.space
-            </a>
+            <strong>E-Mail:</strong>{' '}
+            <a href="mailto:contact@waterlilith.space">contact@waterlilith.space</a>
           </p>
         </CardContent>
       </Card>
@@ -64,18 +56,12 @@ export default function Impressum() {
 
       <Card className="scroll-mt-6">
         <CardHeader className="border-b pb-4">
-          <h2
-            id="bildernachweis"
-            className="scroll-mt-6 text-xl font-semibold tracking-tight"
-          >
+          <h2 id="bildernachweis" className="scroll-mt-6 text-xl font-semibold tracking-tight">
             Bildernachweis
           </h2>
         </CardHeader>
         <CardContent className="space-y-4 pt-4 text-sm leading-7">
-          <p>
-            Die Bilder, Fotos und Grafiken auf dieser Webseite sind
-            urheberrechtlich geschützt.
-          </p>
+          <p>Die Bilder, Fotos und Grafiken auf dieser Webseite sind urheberrechtlich geschützt.</p>
           <p>
             <strong>Die Bilderrechte liegen bei:</strong>
             <br />
@@ -86,10 +72,7 @@ export default function Impressum() {
 
       <Card className="scroll-mt-6">
         <CardHeader className="border-b pb-4">
-          <h2
-            id="onlineauftritte"
-            className="scroll-mt-6 text-xl font-semibold tracking-tight"
-          >
+          <h2 id="onlineauftritte" className="scroll-mt-6 text-xl font-semibold tracking-tight">
             Weitere Onlineauftritte
           </h2>
         </CardHeader>
@@ -101,10 +84,7 @@ export default function Impressum() {
               https://github.com/waterlilith0
             </a>
             <br />
-            <a
-              href="https://bsky.app/profile/waterlilith.space"
-              target="_blank"
-            >
+            <a href="https://bsky.app/profile/waterlilith.space" target="_blank">
               https://bsky.app/profile/waterlilith.space
             </a>
           </p>
@@ -118,17 +98,17 @@ export default function Impressum() {
         <CardContent className="space-y-4 pt-4 text-sm leading-7">
           <p>Alle Texte sind urheberrechtlich geschützt.</p>
           <p>
-            Quelle: Erstellt mit dem{" "}
+            Quelle: Erstellt mit dem{' '}
             <a
               href="https://www.adsimple.de/impressum-generator/"
               title="Impressum Generator Deutschland von AdSimple"
             >
               Impressum Generator
-            </a>{" "}
+            </a>{' '}
             von AdSimple
           </p>
         </CardContent>
       </Card>
     </div>
-  );
+  )
 }
