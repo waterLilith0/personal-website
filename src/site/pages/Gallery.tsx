@@ -1,13 +1,46 @@
-// TODO : Add a gallery of images here
-function Gallery() {
-  return (
-    <>
-      <title>Gallery - WIP</title>
-      <div className="flex flex-col items-center overflow-y-scroll h-full w-full max-w-3xl">
-        <h1>Gallery Page</h1>
-      </div>
-    </>
-  );
+import { useEffect, useState } from 'react'
+import { IMAGE_EXT, VRCHAT_ROOT, listDir } from '../../shared/media'
+import MasonryGallery from '../../shared/MasonryGallery'
+
+interface GalleryImage {
+  key: string
+  mtime: number
 }
 
-export default Gallery;
+async function listImages(prefix = ''): Promise<GalleryImage[]> {
+  const entries = await listDir(prefix)
+  const files = entries
+    .filter((e) => e.type === 'file' && IMAGE_EXT.test(e.name))
+    .map((e) => ({ key: prefix + e.name, mtime: Date.parse(e.mtime) }))
+  const nested = await Promise.all(
+    entries
+      .filter((e) => e.type === 'directory' && `${prefix}${e.name}/` !== VRCHAT_ROOT)
+      .map((e) => listImages(`${prefix}${e.name}/`)),
+  )
+  return [...files, ...nested.flat()]
+}
+
+function Gallery() {
+  const [images, setImages] = useState<GalleryImage[]>([])
+
+  useEffect(() => {
+    listImages()
+      .then((list) => setImages(list.sort((a, b) => b.mtime - a.mtime)))
+      .catch(console.error)
+  }, [])
+
+  return (
+    <section>
+      <title>Gallery</title>
+      <div className="flex flex-col items-center justify-center w-full h-full">
+        <h1 className="p-6">Gallery</h1>
+        <p>All my favorite pictures in one place.</p>
+        <article className="h-full w-full overflow-y-auto p-2">
+          <MasonryGallery keys={images.map((i) => i.key)} />
+        </article>
+      </div>
+    </section>
+  )
+}
+
+export default Gallery

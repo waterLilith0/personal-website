@@ -1,0 +1,42 @@
+name: Frontend
+
+on:
+  pull_request:
+  # So the deploy workflow can run the same checks before it ships anything.
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: frontend-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  checks:
+    name: Types and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          # The same major as the Dockerfile's build stage.
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Runs tsc -b, then vite build
+      - name: Build
+        run: npm run build
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run prettier
+        run: npm run format:check

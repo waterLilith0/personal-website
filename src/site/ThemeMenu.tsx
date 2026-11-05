@@ -1,30 +1,30 @@
-import { useAtom } from "jotai";
-import { cn } from "@/lib/utils";
+import { useAtom } from 'jotai'
+import { cn } from 'cn'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { themeAtom } from "@/shared/theme/configAtoms";
-import { THEMES, themeSchema } from "@/shared/theme/useResolvedTheme";
+} from '@/components/ui/select'
+import { themeAtom } from '@/shared/theme/configAtoms'
+import { THEMES, themeSchema } from '@/shared/theme/useResolvedTheme'
 
 export default function ThemeMenu({ className }: { className?: string }) {
-  const [theme, setTheme] = useAtom(themeAtom);
+  const [theme, setTheme] = useAtom(themeAtom)
 
   return (
-    <Select value={theme} onValueChange={(v) => setTheme(themeSchema.parse(v))}>
+    <Select items={THEMES} value={theme} onValueChange={(v) => setTheme(themeSchema.parse(v))}>
       <SelectTrigger
         aria-label="Theme"
         className={cn(
-          "h-8 w-full border-transparent bg-transparent text-sm hover:bg-gray-500 lg:w-32",
+          'h-8 w-full border-transparent bg-transparent text-sm hover:bg-gray-500 lg:w-32',
           className,
         )}
       >
         <SelectValue />
       </SelectTrigger>
-      <SelectContent position="popper" className="z-60">
+      <SelectContent alignItemWithTrigger={false} className="z-60">
         {THEMES.map((t) => (
           <SelectItem key={t.value} value={t.value}>
             {t.label}
@@ -32,5 +32,5 @@ export default function ThemeMenu({ className }: { className?: string }) {
         ))}
       </SelectContent>
     </Select>
-  );
+  )
 }
