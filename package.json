@@ -59,6 +59,7 @@
     "eslint-plugin-react-refresh": "^0.5.7",
     "globals": "^17.14.0",
     "knip": "^6.44.1",
+    "minimatch": "^11.0.4",
     "prettier": "^3.9.10",
     "typescript": "~6.0.3",
     "typescript-eslint": "^8.72.1",
@@ -71,5 +72,8 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "overrides": {
+    "minimatch": "$minimatch"
   }
 }
