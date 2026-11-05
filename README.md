@@ -53,6 +53,35 @@ To upload sourcemaps from a local build, add `--secret id=faro_api_key,env=FARO_
 
 nginx proxies `/media/` to a `gallery` container (the separate gallery-server repo) on the `hz_gallery` Docker network, so that path only works when the gallery stack runs next to the site.
 
+### Running with the gallery server
+
+The gallery is a separate, private service. Follow the [gallery-server README](https://github.com/waterLilith0/gallery-server) to configure its image directory and deploy its Compose stack. That stack joins the external `hz_gallery` network and gives its web service the `gallery` network alias expected by this site's nginx configuration.
+
+For a staging website deployment, use a Compose file like this:
+
+```yaml
+name: personal-website-staging
+
+services:
+  web:
+    image: waterlilith0/personal-website:${IMAGE_TAG:-staging}
+    container_name: personal-website-staging
+    restart: unless-stopped
+    labels:
+      - com.centurylinklabs.watchtower.enable=${WATCHTOWER_ENABLE:-false}
+    networks:
+      - hz_web_staging
+      - hz_gallery
+
+networks:
+  hz_web_staging:
+    external: true
+  hz_gallery:
+    external: true
+```
+
+Deploy the gallery stack first, then the website. Both external networks must already exist: the gallery-server setup documents creating `hz_gallery`; create or manage `hz_web_staging` for your web ingress. This website Compose service does not publish a host port; access it through a proxy or ingress attached to `hz_web_staging`. `IMAGE_TAG` defaults to `staging`, and `WATCHTOWER_ENABLE` defaults to `false`.
+
 ## CI/CD
 
 Branch flow: `dev` → PR → `staging` → PR → `main`.
