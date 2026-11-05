@@ -2,7 +2,7 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [dev, main]
+    branches: [staging, main]
 
 permissions:
   contents: read
@@ -23,7 +23,7 @@ jobs:
     needs: frontend-checks
     runs-on: ubuntu-latest
     environment:
-      name: ${{ github.ref_name == 'main' && 'master' || 'dev' }}
+      name: ${{ github.ref_name == 'main' && 'master' || 'staging' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -63,7 +63,7 @@ jobs:
           build-args: |
             VITE_FARO_ENABLED=true
             VITE_FARO_URL=https://faro-collector-prod-eu-west-2.grafana.net/collect/f974a455dacacf8f62e85e96567d7ff6
-            VITE_APP_ENV=${{ github.ref_name == 'main' && 'prod' || 'dev' }}
+            VITE_APP_ENV=${{ github.ref_name == 'main' && 'prod' || 'staging' }}
             VITE_DASHBOARD_URL=${{ vars.VITE_DASHBOARD_URL }}
             FARO_UPLOAD_ENDPOINT=${{ vars.FARO_UPLOAD_ENDPOINT }}
             FARO_APP_ID=${{ vars.FARO_APP_ID }}
@@ -74,6 +74,6 @@ jobs:
             faro_api_key=${{ secrets.FARO_API_KEY }}
           platforms: linux/arm64
           push: true
-          tags: ${{ steps.image-name.outputs.website_image }}:${{ github.ref_name == 'main' && 'prod' || github.ref_name }}
+          tags: ${{ steps.image-name.outputs.website_image }}:${{ github.ref_name == 'main' && 'prod' || 'staging' }}
           cache-from: type=gha,scope=website
           cache-to: type=gha,mode=max,scope=website
