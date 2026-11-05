@@ -2,7 +2,8 @@ name: Frontend
 
 on:
   pull_request:
-  # So the deploy workflow can run the same checks before it ships anything.
+  push:
+    branches: [dev]
   workflow_call:
 
 permissions:
