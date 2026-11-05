@@ -20,8 +20,8 @@ export default function Project({
   description: string
   assetLinks: string[]
 }) {
-  const [images, setImages] = useState([''])
-  const [assets, setAssets] = useState([''])
+  const [images, setImages] = useState<string[]>()
+  const [assets, setAssets] = useState<string[]>()
 
   useEffect(() => {
     const prefix = `${VRCHAT_ROOT}${folder}/`
@@ -39,7 +39,7 @@ export default function Project({
 
   return (
     <section className="w-full max-w-5xl">
-      <div className="flex items-start justify-between gap-4">
+      <header className="flex items-start justify-between gap-4">
         <h2>{toTitle(folder)}</h2>
         <a
           href="https://ko-fi.com/F2F41FAAQB"
@@ -49,22 +49,24 @@ export default function Project({
         >
           Tip me
         </a>
-      </div>
+      </header>
       {description && (
         <p className="whitespace-pre-line">
           <LinkedText text={description} />
         </p>
       )}
       {assetLinks.length > 0 && <AssetCollapsible text={assetLinks.join('\n')} />}
-      <div className="mt-2">
-        <MasonryGallery keys={images} extraColumns={2} />
-      </div>
-      {assets.length > 0 && (
+      {images && (
+        <div className="mt-2">
+          <MasonryGallery keys={images} extraColumns={2} />
+        </div>
+      )}
+      {assets && assets.length > 0 && (
         <ul className="mt-2 list-disc pl-6">
           {assets.map((key) => (
             <li key={key}>
               <a href={fileUrl(key)} download>
-                {key.split('/').pop()}
+                {key.split('/').at(-1)}
               </a>
             </li>
           ))}

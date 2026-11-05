@@ -8,9 +8,9 @@ export default function AssetCollapsible({ text }: { text: string }) {
 
   return (
     <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-      <CollapsibleTrigger className="flex flex-row items-center justify-center">
+      <CollapsibleTrigger className="flex flex-row items-center justify-center underline text-2xl">
         {isOpen ? <RiArrowUpLine /> : <RiArrowDownLine />}
-        <h3 className=" underline">Assets</h3>
+        Assets
       </CollapsibleTrigger>
       <CollapsibleContent className="whitespace-pre-line">
         <LinkedText text={text} />

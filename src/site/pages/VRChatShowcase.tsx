@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { DESCRIPTION_FILE, VRCHAT_ROOT, fileUrl, listDir } from '@/shared/media'
 import Project from '@/components/Project'
-import { parseDescription } from '@/hooks/parse-file'
+import { parseDescription } from '@/shared/parse-file'
 
-export async function readText(key: string): Promise<string> {
+async function readText(key: string): Promise<string> {
   const res = await fetch(fileUrl(key))
   return res.ok ? (await res.text()).trim() : ''
 }
