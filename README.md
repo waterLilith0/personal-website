@@ -4,7 +4,7 @@ React 19 + TypeScript + Vite 8 + Tailwind 4 single-page site, served by nginx in
 
 ## Requirements
 
-- Node 24 (the same major as the Dockerfile and CI)
+- Node 26 LTS (the same major as the Dockerfile and CI)
 - npm
 - Docker with Buildx (only to build the image locally)
 
@@ -90,6 +90,22 @@ Branch flow: `dev` → PR → `staging` → PR → `main`.
 - **CI/CD Pipeline** (`.github/workflows/deploy.yml`): runs on pushes to `staging` and `main`. It runs the frontend checks first, then builds the `linux/arm64` image and pushes it to Docker Hub as `<DOCKER_USERNAME>/personal-website:staging` (from `staging`, GitHub environment `staging`) or `:prod` (from `main`, GitHub environment `master`).
 
 `VITE_APP_ENV` is set to `prod` on `main` and `staging` on `staging`.
+
+### Dependency updates
+
+Dependabot checks npm packages, GitHub Actions and Docker images weekly. npm
+version updates have a seven-day cooldown and group minor and patch updates
+separately for production and development dependencies; security updates are
+not delayed by the cooldown.
+
+Node and `@types/node` updates are restricted to the approved Node 26 major.
+Dependabot cannot automatically identify LTS releases, so when moving to a
+newer LTS, update the Dockerfile, CI, Node types, and the restrictions in
+`.github/dependabot.yml` together. Review the
+[Node.js release schedule](https://nodejs.org/en/about/previous-releases)
+before Node 26 reaches end of life. Other dependencies receive normal updates
+and are not filtered by LTS status. Ignored versions can also prevent security
+updates, so review any outstanding alerts when changing this restriction.
 
 ### GitHub configuration
 

@@ -4,8 +4,21 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 7
+    ignore:
+      # Keep Node types aligned with the approved Node LTS major.
+      - dependency-name: "@types/node"
+        versions:
+          - ">=27.0.0"
     groups:
-      npm-minor-and-patch:
+      npm-production-minor-and-patch:
+        dependency-type: production
+        update-types:
+          - minor
+          - patch
+      npm-development-minor-and-patch:
+        dependency-type: development
         update-types:
           - minor
           - patch
@@ -24,6 +37,11 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      # Review and update this restriction when moving to the next Node LTS.
+      - dependency-name: node
+        versions:
+          - ">= 27"
     groups:
       docker-minor-and-patch:
         update-types:
