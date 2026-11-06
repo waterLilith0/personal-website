@@ -66,7 +66,7 @@ jobs:
             VITE_APP_ENV=${{ github.ref_name == 'main' && 'prod' || 'staging' }}
             VITE_DASHBOARD_URL=${{ vars.VITE_DASHBOARD_URL }}
             FARO_UPLOAD_ENDPOINT=${{ vars.FARO_UPLOAD_ENDPOINT }}
-            FARO_APP_ID=8206
+            FARO_APP_ID=8207
             FARO_STACK_ID=1602980
             FARO_GIT_HASH=${{ github.sha }}
           # Mounted only for the build step, so it never ends up in an image layer.
