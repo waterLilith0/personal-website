@@ -62,7 +62,7 @@ jobs:
           # Baked into the static bundle and visible to every visitor, so none of these are secrets.
           build-args: |
             VITE_FARO_ENABLED=true
-            VITE_FARO_URL=https://faro-collector-prod-eu-west-2.grafana.net/collect/f974a455dacacf8f62e85e96567d7ff6
+            VITE_FARO_URL=https://faro-collector-prod-eu-west-2.grafana.net/collect/07db16eceeb42d922d03ada55b8fee2b
             VITE_APP_ENV=${{ github.ref_name == 'main' && 'prod' || 'staging' }}
             VITE_DASHBOARD_URL=${{ vars.VITE_DASHBOARD_URL }}
             FARO_UPLOAD_ENDPOINT=${{ vars.FARO_UPLOAD_ENDPOINT }}
