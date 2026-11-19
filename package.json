@@ -43,27 +43,27 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@babel/core": "^8.1.0",
+    "@babel/core": "^8.1.2",
     "@eslint/js": "^10.0.1",
     "@grafana/faro-rollup-plugin": "^0.13.2",
-    "@rolldown/plugin-babel": "^0.3.0",
+    "@rolldown/plugin-babel": "^0.3.1",
     "@types/babel__core": "^7.20.5",
     "@types/node": "^26.6.6",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
-    "@vitejs/plugin-react": "^6.2.1",
+    "@vitejs/plugin-react": "^6.3.0",
     "babel-plugin-react-compiler": "^1.0.0",
     "eslint": "^10.14.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
     "globals": "^17.14.0",
-    "knip": "^6.44.1",
-    "minimatch": "^11.0.4",
-    "prettier": "^3.9.10",
+    "knip": "^6.45.1",
+    "minimatch": "^11.0.8",
+    "prettier": "^3.10.1",
     "typescript": "~6.0.3",
-    "typescript-eslint": "^8.72.1",
-    "vite": "^8.3.5"
+    "typescript-eslint": "^8.72.2",
+    "vite": "^8.3.8"
   },
   "allowScripts": {
     "esbuild@0.28.2": true
